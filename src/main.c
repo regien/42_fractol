@@ -100,9 +100,14 @@ int	main(int ac, char **av)
 				if ((newre * newre + newim * newim) > 4)
 					break;
 			}
+
+			// you have to change the color to make it interactive
+			color =	0xFFFFFF;
+			//draw the f pixel
+			draw_point(x, y, color, envi);
 		}
 	}
-
+	mlx_put_image_to_window(envi->mlx, envi->win, envi->img, 0, 0);
 
 
 	mlx_loop(envi->mlx);
