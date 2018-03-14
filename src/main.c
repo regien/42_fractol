@@ -32,6 +32,13 @@ void	draw_point(int x, int y, int color, t_total *env)
 //	env->pix[++i] = color >> 16;
 }
 
+void	draw_colorpix(int x, int y, int i, t_total *envi)
+{
+	unsigned int	color;
+	t_
+}
+
+
 
 int	main(int ac, char **av)
 {
@@ -103,6 +110,7 @@ int	main(int ac, char **av)
 
 			// you have to change the color to make it interactive
 			color =	0xFFFFFF;
+//			color++;
 			//draw the f pixel
 			draw_point(x, y, color, envi);
 		}
