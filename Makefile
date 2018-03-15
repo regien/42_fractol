@@ -6,7 +6,7 @@
 #    By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/05 20:46:22 by regien            #+#    #+#              #
-#    Updated: 2018/03/06 05:33:27 by regien           ###   ########.fr        #
+#    Updated: 2018/03/14 20:45:03 by gmalpart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,9 @@ CC = gcc
 LFLAGS = -L/usr/include/../lib -lXext -lX11 -lm
 # OSX flags- frameworks
 MFLAGS = -framework OpenGL -framework AppKit
-CFILES = main.c
+CFILES = main.c \
+		 handlers.c \
+		 hooks.c
 
 HEADERS = -I includes -I libft/includes -I minilibx_macos_elcapitan
 
@@ -74,8 +76,9 @@ compli:
 	$(CC) -g $(HEADERS) $(CSTFILES) $(LILIB) $(LFLAGS) -o $(NAME)
 
 # fast compile for macosx version / MACOSX
+# flags deactivated for testing objectives 
 comp:
-	$(CC) -g $(CFLAGS) $(HEADERS) $(CSTFILES) $(OSXLIB) -Iminilibx_macos_sierra $(MFLAGS) -o $(NAME)
+	$(CC) -g $(HEADERS) $(CSTFILES) $(OSXLIB) -Iminilibx_macos_sierra $(MFLAGS) -o $(NAME)
 
 norm:
 	norminette $(CSTFILES) Makefile includes/fractol.h
