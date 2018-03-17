@@ -100,6 +100,12 @@ int		*get_color(int first, int last)
 void	loophole(t_total *envi)
 {
 //;	mlx_expose_hook();
+	envi->pressed = ft_memalloc(sizeof(t_keys));
+	mlx_hook(envi->win, 2, 0, key_pressed, envi);
+	mlx_hook(envi->win, 3, 0, key_release, envi);
+	mlx_hook(envi->win, 17, 0, destroy_exit, envi);
+	mlx_expose_hook(envi->win, mouse_hook, envi);
+	mlx_hook(envi->win, 4, 5, mouse_hook, envi);
 	mlx_loop(envi->mlx);
 }
 
@@ -175,7 +181,7 @@ int	main(int ac, char **av)
 				if ((newre * newre + newim * newim) > 4)
 					break;
 			}
-
+			
 			// you have to change the color to make it interactive
 //			color++;
 			//draw the f pixel

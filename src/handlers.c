@@ -48,3 +48,10 @@ int		destroy_exit(int error_code, char *mensaje, t_total *envi)
 	exit(error_code);
 	return (0);
 }
+
+int		destroy_regular_exit(int error_code, t_total *envi)
+{
+	mlx_destroy_window(envi->mlx, envi->win);
+	exit(error_code);
+	return (0);
+}

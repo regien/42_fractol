@@ -22,8 +22,8 @@ int			mouse_hook(int keycode, int x, int y, t_total *envi)
 {
 //	(void)x;
 //	(void)y;
-    printf("x code = %i", x);
-    printf("y code = %i", y);
+    printf("x code = %d\n", x);
+    printf("y code = %d\n", y);
 	if (keycode == 5)
 	{
 //		envi->scalex = envi->scalex * 1.1;
@@ -83,7 +83,8 @@ int			my_key_function(t_total *envi)
 int			key_pressed(int keycode, t_total *envi)
 {
 	if (keycode == KEY_ESC)
-		destroy_exit(ESCAPE, "ty :D\n", envi);
+		destroy_regular_exit(ESCAPE, envi);
+//		destroy_exit(ESCAPE, "ty :D\n", envi);
 	if (keycode == KEY_W)
 		envi->pressed->w = 1;
 	else if (keycode == KEY_S)

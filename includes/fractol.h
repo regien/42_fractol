@@ -70,11 +70,12 @@ typedef struct		s_total
 	int				s_line;
 	int				endian;
 	int				*color;
-	t_keys			*keys;
+	t_keys			*pressed;
 
 	// fractal general control
 	int				iter;
 
+	// translation
 	int				trax;
 	int				tray;
 }					t_total;
@@ -86,6 +87,7 @@ typedef struct		s_total
 void	fillit_print_usage(char *arg);
 void	general_exit(int error_code, char *mensaje);
 int		destroy_exit(int error_code, char *mensaje, t_total *envi);
+int		destroy_regular_exit(int error_code, t_total *envi);
 
 /*
 ** HOOKS
