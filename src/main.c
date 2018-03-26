@@ -96,14 +96,28 @@ int		*get_color(int first, int last)
 	return (color);
 }
 
+/*
+void	draw_everything(t_total *envi)
+{
+
+}
+
+void	infi_draw(t_total *envi)
+{
+	
+}
+*/
+
+
 
 void	loophole(t_total *envi)
 {
 //;	mlx_expose_hook();
 	envi->pressed = ft_memalloc(sizeof(t_keys));
+//	infi_draw(envi);
 	mlx_hook(envi->win, 2, 0, key_pressed, envi);
 	mlx_hook(envi->win, 3, 0, key_release, envi);
-	mlx_hook(envi->win, 17, 0, destroy_exit, envi);
+	mlx_hook(envi->win, 17, 0, exit_hook, envi);
 	mlx_expose_hook(envi->win, mouse_hook, envi);
 	mlx_hook(envi->win, 4, 5, mouse_hook, envi);
 	mlx_loop(envi->mlx);
@@ -158,7 +172,6 @@ int	main(int ac, char **av)
 	color = get_color(0xFFFFFF, 0x234513);
 
 		
-
 	while (++y < WINH)
 	{
 		x = -1;

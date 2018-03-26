@@ -80,6 +80,15 @@ typedef struct		s_total
 	int				tray;
 }					t_total;
 
+
+/*
+** MAIN
+*/
+
+void	infi_draw(t_total *envi);
+void	draw_everything(t_total *envi);
+
+
 /*
 ** HANDLERS
 */
@@ -88,6 +97,7 @@ void	fillit_print_usage(char *arg);
 void	general_exit(int error_code, char *mensaje);
 int		destroy_exit(int error_code, char *mensaje, t_total *envi);
 int		destroy_regular_exit(int error_code, t_total *envi);
+int		exit_hook(t_total *envi);
 
 /*
 ** HOOKS

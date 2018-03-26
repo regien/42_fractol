@@ -55,3 +55,13 @@ int		destroy_regular_exit(int error_code, t_total *envi)
 	exit(error_code);
 	return (0);
 }
+
+/*
+** NEXT LEVEL IMPLEMENTATION OF A HOOK
+*/
+
+int		exit_hook(t_total *envi)
+{
+	mlx_destroy_window(envi->mlx, envi->win);
+	exit(0);
+}
