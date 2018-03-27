@@ -78,6 +78,9 @@ typedef struct		s_total
 	// translation
 	int				trax;
 	int				tray;
+	
+	// draw controls
+	int				draw;
 }					t_total;
 
 

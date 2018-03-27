@@ -96,15 +96,19 @@ int		*get_color(int first, int last)
 	return (color);
 }
 
+
 /*
 void	draw_everything(t_total *envi)
 {
-
+	julia(envi);
 }
 
 void	infi_draw(t_total *envi)
 {
-	
+	while(!envi->draw)
+	{
+		draw_everything(envi);
+	}
 }
 */
 
@@ -136,6 +140,8 @@ int	main(int ac, char **av)
 	envi->pix = (int*)mlx_get_data_addr(envi->img, &(envi->bits), \
 				&(envi->s_line), &(envi->endian));
 
+	envi->draw = 1;
+
 	// initializing first fractol
 	double	cre;
 	double	cim;
@@ -164,7 +170,7 @@ int	main(int ac, char **av)
 	movey = 0;
 
 	zoom = 1;
-	maxiterations = 300;
+	maxiterations = 450;
 
 	cre = -0.7;
 	cim = 0.27015;
