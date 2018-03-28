@@ -16,6 +16,7 @@
 # include "mlx.h"
 # include <math.h>
 # include <stdio.h>
+# include <pthread.h>
 
 # define ESCAPE -1
 # define KEY_C 8
@@ -71,13 +72,18 @@ typedef struct		s_total
 	int				endian;
 	int				*color;
 	t_keys			*pressed;
+	// julia modifiers
+	float			hola;
+	float			holb;
 
 	// fractal general control
 	int				iter;
+	int				blocked;
 
 	// translation
 	int				trax;
 	int				tray;
+	float			scale;
 
 	int				(*fractol)(struct s_total *, double, double);
 	// threads control
@@ -91,9 +97,12 @@ typedef struct		s_total
 /*
 ** MAIN
 */
+void	draw_point(int x, int y, int color, t_total *env);
+int		*get_color(int first, int last);
 
 void	infi_draw(t_total *envi);
 void	draw_everything(t_total *envi);
+void	init_values(t_total *envi);
 
 
 /*
@@ -115,5 +124,6 @@ int			mouse_hook(int keycode, int x, int y, t_total *envi);
 int			my_key_function(t_total *envi);
 int			key_pressed(int keycode, t_total *envi);
 int			key_release(int keycode, t_total *envi);
+int			mouse_move(int x, int y, t_total *envi);
 
 #endif

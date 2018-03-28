@@ -18,33 +18,58 @@ int			expose_hook(t_total *envi)
 	return (0);
 }
 
+int			mouse_move(int x, int y, t_total *envi)
+{
+	if (!envi->blocked)
+	{
+		x = x - WINW / 2;
+        y = y - WINH / 2;
+		envi->hola = ((float)x / WINW) * 2;
+		envi->holb = ((float)x / WINW) * 2;
+//  DRAW FUNCTION HERE <<<<<<<<<<<<
+	}
+}
+
 int			mouse_hook(int keycode, int x, int y, t_total *envi)
 {
 //	(void)x;
 //	(void)y;
+	printf("keycode = %d\n", keycode);
     printf("x code = %d\n", x);
     printf("y code = %d\n", y);
-	if (keycode == 5)
-	{
+//	if (keycode == 5)
+//	{
 //		envi->scalex = envi->scalex * 1.1;
 //		envi->scaley = envi->scaley * 1.1;
 //		envi->scalez = envi->scalez * 1.1;
-        ;
-	}
-	if (keycode == 4)
-	{
+//        ;
+//	}
+//	if (keycode == 4)
+//	{
 //		envi->scalex = envi->scalex / 1.2;
 //		envi->scaley = envi->scaley / 1.2;
 //		envi->scalez = envi->scalez / 1.2;
-        ;
-	}
-	if (keycode == 2)
-        ;
+ //       ;
+//	}
+//	if (keycode == 2)
+//        ;
 //		init_fdf(envi);
-	if (keycode == 1)
-        ;
+	if (keycode == 1 || keycode == 5)
+	{
+		x = x - WINW / 2;
+        y = y - WINH / 2;
+		envi->scale *= 1.1;
+		envi->trax += x / envi->scale / 2.51;
+		envi->tray += y / envi->scale / 2.51;
+	}
+	else if (keycode == 2 || keycode == 4)
+	{
+		envi->scale = envi->scale / (envi->scale \
+		> 0.2 ? 1.1 : 1);
+	}
 //		shuffle_colors(envi);
 //	draw_everything(envi);
+//  DRAW FUNCTION HERE <<<<<<<<<<<<
 	return (0);
 }
 

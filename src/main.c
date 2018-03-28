@@ -112,10 +112,22 @@ void	infi_draw(t_total *envi)
 }
 */
 
+void	init_values(t_total *envi)
+{
+	envi->scale = 1;
+	envi->trax = 0;
+	envi->tray = 0;
+	envi->iter = 45;
+	envi->hola = -0.7;
+	envi->holb = 0.27015;
+	envi->blocked = 0;
+}
+
 
 
 void	loophole(t_total *envi)
 {
+	init_values(envi);
 //;	mlx_expose_hook();
 	envi->pressed = ft_memalloc(sizeof(t_keys));
 //	infi_draw(envi);
@@ -124,6 +136,7 @@ void	loophole(t_total *envi)
 	mlx_hook(envi->win, 17, 0, exit_hook, envi);
 	mlx_expose_hook(envi->win, mouse_hook, envi);
 	mlx_hook(envi->win, 4, 5, mouse_hook, envi);
+	mlx_hook(envi->win, 6, (1L << 6), mouse_move, envi);
 	mlx_loop(envi->mlx);
 }
 
