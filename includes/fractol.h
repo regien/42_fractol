@@ -84,6 +84,7 @@ typedef struct		s_total
 	int				trax;
 	int				tray;
 	float			scale;
+	int				max;
 
 	int				(*fractol)(struct s_total *, double, double);
 	// threads control
@@ -91,17 +92,19 @@ typedef struct		s_total
 
 	// draw controls
 	int				draw;
+
 }					t_total;
 
 
 /*
 ** MAIN
 */
-void	draw_point(int x, int y, int color, t_total *env);
+int		draw_julia(int x, int y, t_total *envi);
+void	draw_fractol(t_total *envi);
+void	draw_point(int x, int y, int iter, t_total *env);
 int		*get_color(int first, int last);
 
-void	infi_draw(t_total *envi);
-void	draw_everything(t_total *envi);
+void	redraw(t_total *envi);
 void	init_values(t_total *envi);
 
 

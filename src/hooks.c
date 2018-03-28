@@ -15,6 +15,7 @@
 int			expose_hook(t_total *envi)
 {
 //	draw_everything(envi);
+	redraw(envi);
 	return (0);
 }
 
@@ -27,6 +28,7 @@ int			mouse_move(int x, int y, t_total *envi)
 		envi->hola = ((float)x / WINW) * 2;
 		envi->holb = ((float)x / WINW) * 2;
 //  DRAW FUNCTION HERE <<<<<<<<<<<<
+		redraw(envi);
 	}
 }
 
@@ -70,6 +72,7 @@ int			mouse_hook(int keycode, int x, int y, t_total *envi)
 //		shuffle_colors(envi);
 //	draw_everything(envi);
 //  DRAW FUNCTION HERE <<<<<<<<<<<<
+	redraw(envi);
 	return (0);
 }
 
@@ -102,6 +105,7 @@ int			my_key_function(t_total *envi)
 	if (envi->pressed->up)
 		envi->tray -= 1;
 //	draw_everything(envi);
+	redraw(envi);
 	return (0);
 }
 

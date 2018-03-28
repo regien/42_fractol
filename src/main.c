@@ -13,9 +13,10 @@
 #include "fractol.h"
 #include <stdio.h>
 
-void	draw_point(int x, int y, int color, t_total *env)
+void	draw_point(int x, int y, int iter, t_total *env)
 {
 	int				i;
+	int				e;
 //	unsigned int	color;
 //	float			which;
 
@@ -27,45 +28,10 @@ void	draw_point(int x, int y, int color, t_total *env)
 		return ;
 //	which = env->which;
 //	color = env->colors[(int)which];
-	env->pix[i] = color;
-	env->pix[++i] = color >> 8;
-	env->pix[++i] = color >> 16;
+	env->pix[i] = env->color[iter % 100];
+	env->pix[++i] = env->color[iter % 100] >> 8;
+	env->pix[++i] = env->color[iter % 100] >> 16;
 }
-
-
-/*
-void	draw_colorpix(int x, int y, int i, t_total *envi)
-{
-	unsigned int	color;
-	t_
-}
-*/
-
-/*
-void	init_colors(t_total *envi)
-{
-	int		i;
-	float	r[3];
-	float	g[3];
-	float	b[3];
-
-	i = -1;
-	envi->colors = ft_memalloc(sizeof(int) * 100);
-	r[0] = (float)(COLOR1 >> 16 & 0xFF);
-	r[1] = (float)(COLOR2 >> 16 & 0xFF);
-	g[0] = (float)(COLOR1 >> 8 & 0xFF);
-	g[1] = (float)(COLOR2 >> 8 & 0xFF);
-	b[0] = (float)(COLOR1 & 0xFF);
-	b[1] = (float)(COLOR2 & 0xFF);
-	while (++i < 100)
-	{
-		r[2] = (float)(r[0] * i) / 100 + (float)(r[1] * (100 - i)) / 100;
-		g[2] = (float)(g[0] * i) / 100 + (float)(g[1] * (100 - i)) / 100;
-		b[2] = (float)(b[0] * i) / 100 + (float)(b[1] * (100 - i)) / 100;
-		envi->colors[i] = (int)r[2] << 16 | (int)g[2] << 8 | (int)b[2];
-	}
-}
-*/
 
 int		*get_color(int first, int last)
 {
@@ -96,47 +62,126 @@ int		*get_color(int first, int last)
 	return (color);
 }
 
-
 /*
-void	draw_everything(t_total *envi)
-{
-	julia(envi);
-}
+		newre = 1.5 * (x - WINW / 2) / (0.5 * zoom * WINW) + movex;
+		newim = (y - WINH / 2) / (0.5 * zoom * WINH) + movey;
 
-void	infi_draw(t_total *envi)
-{
-	while(!envi->draw)
-	{
-		draw_everything(envi);
-	}
+		int i;
+		i = -1;
+		while (++i < maxiterations)
+			{
+				oldre = newre;
+				oldim = newim;
+				
+				newre = oldre  * oldre - oldim * oldim + cre;
+				newim = 2 * oldre * oldim + cim;
+
+				if ((newre * newre + newim * newim) > 4)u)
+	while()
 }
 */
 
+int		draw_julia(int x, int y, t_total *envi)
+{
+	double	newre;
+	double	newim;
+	double	oldre;
+	double	oldim;
+	int		i;
+	
+	newre = 1.5 * (x - WINW / 2) / (0.5 * envi->scale *WINW) \
+	+ envi->trax;
+	newim = (y - WINH / 2) / (0.5 * envi->scale * WINH) \
+	+ envi->tray;
+	i = -1;
+	while (++i < envi->max)
+	{
+		oldre = newre;
+		oldim = newim;
+		newre = oldre * oldre - oldim * oldim + envi->hola;
+		newim = 2 * oldre * oldim + envi->holb;
+		if ((newre * newre + newim * newim) > 4)
+			break;
+	}
+	return (i);
+}
+/*
+int		draw_julia(int x, int y, t_total *envi)
+{
+	double	za;
+	double	zb;
+	double	temp;
+	int		i;
+
+	za = ((4 * x / WINW - 2) / envi->scale) +
+		((envi->trax / WINW));
+	zb = ((-4 * y / WINH + 2) / envi->scale) +
+		((envi->tray / WINH));
+	i = -1;
+	while (za * za + zb * zb <= 4 && ++i < envi->max)
+	{
+		temp = za;
+		za = za * za - zb * zb + envi->hola;
+		zb = 2 * temp * zb + envi->holb;
+	}
+	return (i);
+}
+*/
+
+void	draw_fractol(t_total *envi)
+{
+	// initialize mutlithreading right here, it would be easier
+	// commom gerardo
+	int		x;
+	int		y;
+
+	y = -1;
+	while (++y < WINH)
+	{
+		x = -1;
+		while (++x < WINW)
+			draw_point(x, y, draw_julia(x, y, envi), envi);
+	}
+}
+	
 void	init_values(t_total *envi)
 {
-	envi->scale = 1;
+	envi->scale = 1.0;
 	envi->trax = 0;
 	envi->tray = 0;
 	envi->iter = 45;
 	envi->hola = -0.7;
 	envi->holb = 0.27015;
 	envi->blocked = 0;
+	envi->max = 45;
+	envi->color = get_color(0xFFFFFF, 0x234513);
 }
 
 
+void		redraw(t_total *envi)
+{
+	envi->img = mlx_new_image(envi->mlx, WINW, WINH);
+	envi->pix = (int*)mlx_get_data_addr(envi->img, &(envi->bits), \
+				&(envi->s_line), &(envi->endian));
+	// or draw fractol
+	draw_fractol(envi);
+	mlx_put_image_to_window(envi->mlx, envi->win, envi->img, \
+	0, 0);
+	mlx_destroy_image(envi->mlx, envi->img);
+}
 
 void	loophole(t_total *envi)
 {
-	init_values(envi);
-//;	mlx_expose_hook();
+	envi->max = 45;
 	envi->pressed = ft_memalloc(sizeof(t_keys));
 //	infi_draw(envi);
+	init_values(envi);
 	mlx_hook(envi->win, 2, 0, key_pressed, envi);
 	mlx_hook(envi->win, 3, 0, key_release, envi);
 	mlx_hook(envi->win, 17, 0, exit_hook, envi);
-	mlx_expose_hook(envi->win, mouse_hook, envi);
+	mlx_expose_hook(envi->win, expose_hook, envi);
 	mlx_hook(envi->win, 4, 5, mouse_hook, envi);
-	mlx_hook(envi->win, 6, (1L << 6), mouse_move, envi);
+	mlx_hook(envi->win, 6,  64, mouse_move, envi);
 	mlx_loop(envi->mlx);
 }
 
@@ -149,13 +194,14 @@ int	main(int ac, char **av)
 
 	envi->mlx = mlx_init();
 	envi->win = mlx_new_window(envi->mlx, WINW, WINH, "fractol_MEX_version");
-	envi->img = mlx_new_image(envi->mlx, WINW, WINH);
-	envi->pix = (int*)mlx_get_data_addr(envi->img, &(envi->bits), \
-				&(envi->s_line), &(envi->endian));
+//	envi->img = mlx_new_image(envi->mlx, WINW, WINH);
+//	envi->pix = (int*)mlx_get_data_addr(envi->img, &(envi->bits), 
+//				&(envi->s_line), &(envi->endian));
 
 	envi->draw = 1;
 
 	// initializing first fractol
+	/*
 	double	cre;
 	double	cim;
 	
@@ -183,7 +229,7 @@ int	main(int ac, char **av)
 	movey = 0;
 
 	zoom = 1;
-	maxiterations = 450;
+	maxiterations = 150;
 
 	cre = -0.7;
 	cim = 0.27015;
@@ -222,7 +268,7 @@ int	main(int ac, char **av)
 	}
 	mlx_put_image_to_window(envi->mlx, envi->win, envi->img, 0, 0);
 
-
+*/
 	loophole(envi);
 	return (0);
 }
