@@ -78,7 +78,11 @@ typedef struct		s_total
 	// translation
 	int				trax;
 	int				tray;
-	
+
+	int				(*fractol)(struct s_total *, double, double);
+	// threads control
+	pthread_t		*thread;
+
 	// draw controls
 	int				draw;
 }					t_total;
