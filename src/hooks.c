@@ -6,7 +6,7 @@
 /*   By: gmalpart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 20:44:13 by gmalpart          #+#    #+#             */
-/*   Updated: 2018/03/14 20:44:23 by gmalpart         ###   ########.fr       */
+/*   Updated: 2018/03/28 17:46:16 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int			mouse_move(int x, int y, t_total *envi)
 //  DRAW FUNCTION HERE <<<<<<<<<<<<
 		redraw(envi);
 	}
+	return (0);
 }
 
 int			mouse_hook(int keycode, int x, int y, t_total *envi)

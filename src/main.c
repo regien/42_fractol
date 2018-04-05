@@ -105,6 +105,65 @@ int		draw_julia(int x, int y, t_total *envi)
 	}
 	return (i);
 }
+
+/*
+int		draw_mandelbrot(int x, int y, t_total *envi)
+{
+	double	pr;
+	double	pi;
+	double	newre;
+	double	newim;
+	double	oldre;
+	double	oldim;
+	int		i;
+
+	i = -1;
+	newre = 0;
+	newim = 0;
+	
+	pr = 1.5 * (x - WINW / 2) / (0.5 * envi->scale * WINW) + envi->trax;
+	pi = (y - WINH / 2) / (0.5 * envi->scale * WINH) + envi->tray;
+	while (i++ < envi->iter)
+	{
+		oldre = newre;
+		oldim = newim;
+		newre = oldre * oldre - oldim * oldim + pr;
+		newim = 2 * oldre * oldim + pi;
+		if ((newre * newre + newim * newim) > 4)
+			break ;
+	}
+	return (i);
+}
+*/
+
+int		draw_mandelbrot(int x, int y, t_total *envi)
+{
+	double	pr;
+	double	pi;
+	double	newre;
+	double	newim;
+	double	oldre;
+	double	oldim;
+	int		i;
+
+	i = -1;
+	newre = 0;
+	newim = 0;
+	
+	pr = 1.5 * (x - WINW / 2) / (0.5 * envi->scale * WINW) + envi->trax;
+	pi = (y - WINH / 2) / (0.5 * envi->scale * WINH) + envi->tray;
+	while (i++ < envi->iter)
+	{
+		oldre = newre;
+		oldim = newim;
+		newre = oldre * oldre - oldim * oldim + pr;
+		newim = 2 * oldre * oldim + pi;
+		if ((newre * newre + newim * newim) > 4)
+			break ;
+	}
+	return (i);
+}
+
 /*
 int		draw_julia(int x, int y, t_total *envi)
 {
@@ -140,7 +199,7 @@ void	draw_fractol(t_total *envi)
 	{
 		x = -1;
 		while (++x < WINW)
-			draw_point(x, y, draw_julia(x, y, envi), envi);
+			draw_point(x, y, draw_mandelbrot(x, y, envi), envi);
 	}
 }
 	

@@ -6,7 +6,7 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 08:15:22 by regien            #+#    #+#             */
-/*   Updated: 2018/03/11 08:15:24 by regien           ###   ########.fr       */
+/*   Updated: 2018/03/28 17:46:37 by gmalpart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ typedef struct		s_total
 	int				blocked;
 
 	// translation
-	int				trax;
-	int				tray;
+	float				trax;
+	float				tray;
 	float			scale;
 	int				max;
 
@@ -100,6 +100,7 @@ typedef struct		s_total
 ** MAIN
 */
 int		draw_julia(int x, int y, t_total *envi);
+int		draw_mandelbrot(int x, int y, t_total *envi);
 void	draw_fractol(t_total *envi);
 void	draw_point(int x, int y, int iter, t_total *env);
 int		*get_color(int first, int last);
