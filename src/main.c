@@ -6,12 +6,18 @@
 /*   By: regien <gmalpart@student.42.us.org>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 08:15:02 by regien            #+#    #+#             */
-/*   Updated: 2018/03/11 08:48:27 by regien           ###   ########.fr       */
+/*   Updated: 2018/04/24 23:42:14 by regien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <stdio.h>
+
+/*
+** These functions were modfied from the previus project (FDF)
+** and just being refactorized to work with this project
+** which at some point it way simplier
+*/
 
 void	draw_point(int x, int y, int iter, t_total *env)
 {
